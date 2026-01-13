@@ -1,4 +1,4 @@
-FROM docker.io/library/pypy:latest
+FROM docker.io/library/python:3.11-slim
 
 RUN apt-get update \
     && apt-get install -y libxml2-dev libxslt-dev python3-dev \
