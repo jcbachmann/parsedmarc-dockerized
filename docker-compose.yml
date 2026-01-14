@@ -4,15 +4,14 @@ services:
       context: ./parsedmarc/
       dockerfile: ./Dockerfile
     environment:
-      # in general: <section>.<option>
-      parsedmarc.general.save_aggregate: "True"
-      parsedmarc.general.save_forensic: "True"
-      # parsedmarc.mailbox.watch: "True"
-      # parsedmarc.imap.host: "imap.example.com"
-      # parsedmarc.imap.user: "parsedmarc@example.com"
-      # parsedmarc.imap.password: "somepassword"
-      parsedmarc.elasticsearch.hosts: "http://elasticsearch:9200"
-      parsedmarc.elasticsearch.ssl: "False"
+      - parsedmarc.general.save_aggregate=True
+      - parsedmarc.general.save_forensic=True
+      # Adding both common variations for Azure/MSAL cache
+      - AZURE_IDENTITY_ALLOW_UNENCRYPTED_STORAGE=True
+      - MSAL_CACHE_UNENCRYPTED_STORAGE=True
+      - parsedmarc.mail.graph.allow_unencrypted_storage=True
+      - parsedmarc.elasticsearch.hosts=http://elasticsearch:9200
+      - parsedmarc.elasticsearch.ssl=False
     restart: unless-stopped
     depends_on:
       - elasticsearch
